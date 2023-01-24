@@ -1,0 +1,18 @@
+[project]
+name = 'ifrs16'
+authors = [
+  {name = 'Bradley Smith'}
+]
+description = 'Generate simple lease calculations with respect to IFRS 16'
+readme = 'README.md'
+requires-python = '>=3.11'
+classifiers = ['Programming Language :: Python :: 3']
+dynamic = ['version']
+
+[tool.setuptools.dynamic]
+version = {attr = 'ifrs16.__version__'}
+
+[tool.setuptools.packages.find]
+include = ['ifrs16*']
+namespaces = false
+
