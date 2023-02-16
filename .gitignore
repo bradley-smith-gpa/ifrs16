@@ -19,9 +19,10 @@ etc
 media
 /base/static
 
-# ignore pycache files
+# ignore pycache and pytest files
 __pycache__/
 *.pyc
+.pytest_cache
 
 # ignore Excel workbooks
 *.xlsx
