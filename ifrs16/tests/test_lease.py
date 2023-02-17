@@ -44,3 +44,10 @@ class TestSetDates:
     def test_start_after_end_date(self):
         with pytest.raises(StartDateAfterEndDateError):
             Lease(start_date='02/01/2023', end_date='01/01/2023')
+
+
+class TestTerm:
+    def test_get_term(self):
+        lease = Lease(start_date='01/01/2022', end_date='01/01/2023')
+        expected_term = lease.end_date - lease.start_date
+        assert lease.term == expected_term
