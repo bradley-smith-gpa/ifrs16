@@ -2,6 +2,8 @@ astroid==2.13.3
 attrs==22.2.0
 build==0.10.0
 dill==0.3.6
+factory-boy==3.2.1
+Faker==17.0.0
 iniconfig==2.0.0
 isort==5.11.4
 lazy-object-proxy==1.9.0
@@ -13,5 +15,7 @@ pycodestyle==2.10.0
 pylint==2.15.10
 pyproject_hooks==1.0.0
 pytest==7.2.1
+python-dateutil==2.8.2
+six==1.16.0
 tomlkit==0.11.6
 wrapt==1.14.1

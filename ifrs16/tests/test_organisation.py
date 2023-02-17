@@ -1,7 +1,7 @@
-from ifrs16.core.organisation import Organisation
+from ifrs16.tests.factories import OrganisationFactory
 
 
 class TestName:
     def test_name(self):
-        organisation = Organisation(name='Acme Ltd')
+        organisation = OrganisationFactory(name='Acme Ltd')
         assert organisation.name == 'Acme Ltd'
