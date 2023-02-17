@@ -1,6 +1,7 @@
 from datetime import datetime
 import pytest
 from ifrs16.core.lease import Lease
+from ifrs16.core.exceptions import StartDateAfterEndDateError
 
 
 class TestSetDates:
@@ -39,3 +40,7 @@ class TestSetDates:
         with pytest.raises(ValueError):
             # incorrect format for `end_date`
             Lease(start_date='01/01/2022', end_date='2023-01-01')
+
+    def test_start_after_end_date(self):
+        with pytest.raises(StartDateAfterEndDateError):
+            Lease(start_date='02/01/2023', end_date='01/01/2023')
