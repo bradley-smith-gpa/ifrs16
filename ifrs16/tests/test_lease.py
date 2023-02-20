@@ -51,3 +51,21 @@ class TestTerm:
         lease = Lease(start_date='01/01/2022', end_date='01/01/2023')
         expected_term = lease.end_date - lease.start_date
         assert lease.term == expected_term
+
+
+class TestShortTerm:
+    def test_exact_short_term(self):
+        lease = Lease(start_date='01/01/2022', end_date='01/01/2023')
+        assert lease.is_short_term()
+
+    def test_comfortably_short_term(self):
+        lease = Lease(start_date='01/01/2022', end_date='01/05/2022')
+        assert lease.is_short_term()
+
+    def test_nearly_short_term(self):
+        lease = Lease(start_date='31/12/2021', end_date='01/01/2023')
+        assert not lease.is_short_term()
+
+    def test_comfortably_not_short_term(self):
+        lease = Lease(start_date='01/01/2022', end_date='01/01/2024')
+        assert not lease.is_short_term()

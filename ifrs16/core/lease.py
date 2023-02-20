@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from ifrs16.core.exceptions import StartDateAfterEndDateError
 
 
@@ -23,3 +24,8 @@ class Lease:
             raise StartDateAfterEndDateError(dates)
         for attr, date in dates.items():
             setattr(self, attr, date)
+
+    def is_short_term(self):
+        threshold_date = self.end_date - relativedelta(months=12)
+        is_short_term = (self.start_date >= threshold_date)
+        return is_short_term
