@@ -1,12 +1,17 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from ifrs16.core.exceptions import StartDateAfterEndDateError
+from ifrs16.core.exceptions import (
+    StartDateAfterEndDateError, InvalidTenureError
+)
 
 
 class Lease:
-    def __init__(self, start_date, end_date):
+    valid_tenure_choices = ('leasehold', 'freehold')
+
+    def __init__(self, start_date, end_date, tenure):
         self._set_dates(start_date, end_date)
         self.term = self.end_date - self.start_date
+        self._set_tenure(tenure)
 
     def _set_dates(self, start_date, end_date):
         raw_dates = {'start_date': start_date, 'end_date': end_date}
@@ -24,6 +29,12 @@ class Lease:
             raise StartDateAfterEndDateError(dates)
         for attr, date in dates.items():
             setattr(self, attr, date)
+
+    def _set_tenure(self, tenure):
+        if tenure in self.valid_tenure_choices:
+            self.tenure = tenure
+        else:
+            raise InvalidTenureError(tenure, self.valid_tenure_choices)
 
     def is_short_term(self):
         threshold_date = self.end_date - relativedelta(months=12)
