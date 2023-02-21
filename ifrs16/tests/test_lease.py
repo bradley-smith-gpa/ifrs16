@@ -120,9 +120,9 @@ class TestTenure:
             LeaseFactory(tenure='invalid_tenure')
 
 
-class TestOrganisation:
-    def test_organisation(self):
-        '''Organisation instance is set as organisation attribute.'''
-        organisation = OrganisationFactory()
-        lease = LeaseFactory(organisation=organisation)
-        assert lease.organisation == organisation
+class TestLessor:
+    def test_lessor(self):
+        '''Organisation instance is set as lessor attribute.'''
+        lessor = OrganisationFactory()
+        lease = LeaseFactory(lessor=lessor)
+        assert lease.lessor == lessor

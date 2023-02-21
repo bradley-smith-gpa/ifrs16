@@ -21,4 +21,4 @@ class LeaseFactory(Factory):
         lambda obj: fake.date_time_between(start_date=obj.start_date)
     )
     tenure = FuzzyChoice(choices=('leasehold', 'freehold'))
-    organisation = SubFactory(OrganisationFactory)
+    lessor = SubFactory(OrganisationFactory)
