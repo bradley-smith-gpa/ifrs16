@@ -1,5 +1,5 @@
 class StartDateAfterEndDateError(Exception):
-    '''Lease start date is after the end date'''
+    '''Lease start date is after the end date.'''
     def __init__(self, dates):
         self.start_date = dates['start_date']
         self.end_date = dates['end_date']
@@ -11,7 +11,7 @@ class StartDateAfterEndDateError(Exception):
 
 
 class InvalidTenureError(Exception):
-    '''Tenure argument provided is not valid'''
+    '''Tenure argument provided is not valid.'''
     def __init__(self, tenure, valid_tenure_choices):
         self.tenure = tenure
         self.valid_tenure_choices = valid_tenure_choices
