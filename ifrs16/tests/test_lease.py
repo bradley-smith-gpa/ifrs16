@@ -126,3 +126,11 @@ class TestLessor:
         lessor = OrganisationFactory()
         lease = LeaseFactory(lessor=lessor)
         assert lease.lessor == lessor
+
+
+class TestLessee:
+    def test_lessee(self):
+        '''Organisation instance is set as lessee attribute.'''
+        lessee = OrganisationFactory()
+        lease = LeaseFactory(lessee=lessee)
+        assert lease.lessee == lessee

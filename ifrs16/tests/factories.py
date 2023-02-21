@@ -22,3 +22,4 @@ class LeaseFactory(Factory):
     )
     tenure = FuzzyChoice(choices=('leasehold', 'freehold'))
     lessor = SubFactory(OrganisationFactory)
+    lessee = SubFactory(OrganisationFactory)
