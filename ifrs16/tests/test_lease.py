@@ -3,7 +3,7 @@ import pytest
 from ifrs16.core.exceptions import (
     StartDateAfterEndDateError, InvalidTenureError
 )
-from ifrs16.tests.factories import LeaseFactory
+from ifrs16.tests.factories import LeaseFactory, OrganisationFactory
 
 
 class TestSetDates:
@@ -118,3 +118,11 @@ class TestTenure:
         '''Invalid tenure string raises `InvalidTenureError`.'''
         with pytest.raises(InvalidTenureError):
             LeaseFactory(tenure='invalid_tenure')
+
+
+class TestOrganisation:
+    def test_organisation(self):
+        '''Organisation instance is set as organisation attribute.'''
+        organisation = OrganisationFactory()
+        lease = LeaseFactory(organisation=organisation)
+        assert lease.organisation == organisation

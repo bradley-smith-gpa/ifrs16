@@ -9,11 +9,12 @@ class Lease:
     '''Basic lease object.'''
     valid_tenure_choices = ('leasehold', 'freehold')
 
-    def __init__(self, start_date, end_date, tenure):
+    def __init__(self, start_date, end_date, tenure, organisation):
         '''Initialise lease object along with validation of args.'''
         self._set_dates(start_date, end_date)
         self.term = self.end_date - self.start_date
         self._set_tenure(tenure)
+        self.organisation = organisation
 
     def _set_dates(self, start_date, end_date):
         '''Set date attributes as datetimes if they are valid.'''
