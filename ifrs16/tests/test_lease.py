@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 import pytest
 from ifrs16.core.exceptions import (
     StartDateAfterEndDateError, InvalidTenureError
@@ -134,3 +135,25 @@ class TestLessee:
         lessee = OrganisationFactory()
         lease = LeaseFactory(lessee=lessee)
         assert lease.lessee == lessee
+
+
+class TestTransactions:
+    def test_decimal_transactions(self):
+        '''Transaction decimal amount list is set as transactions attribute.'''
+        transactions = [Decimal('12'), Decimal('34.56'), Decimal('7.895')]
+        lease = LeaseFactory(transactions=transactions)
+        # expect each transaction amount to be rounded-down decimal
+        expected_transactions = [
+            Decimal('12'), Decimal('34.56'), Decimal('7.89')
+        ]
+        assert lease.transactions == expected_transactions
+
+    def test_string_transactions(self):
+        '''Transaction string amount list is set as transactions attribute.'''
+        transactions = ['12', '34.56', '7.895']
+        lease = LeaseFactory(transactions=transactions)
+        # expect each transaction amount to be rounded-down decimal
+        expected_transactions = [
+            Decimal('12'), Decimal('34.56'), Decimal('7.89')
+        ]
+        assert lease.transactions == expected_transactions

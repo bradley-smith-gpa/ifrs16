@@ -23,3 +23,13 @@ class LeaseFactory(Factory):
     tenure = FuzzyChoice(choices=('leasehold', 'freehold'))
     lessor = SubFactory(OrganisationFactory)
     lessee = SubFactory(OrganisationFactory)
+    transactions = LazyAttribute(
+        lambda _: (
+            [
+                fake.pydecimal(
+                    right_digits=2, positive=True, max_value=1_000_000
+                )
+                for _ in range(10)
+            ]
+        )
+    )

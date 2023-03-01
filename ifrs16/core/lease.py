@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal, ROUND_DOWN
 from dateutil.relativedelta import relativedelta
 from ifrs16.core.exceptions import (
     StartDateAfterEndDateError, InvalidTenureError
@@ -9,13 +10,16 @@ class Lease:
     '''Basic lease object.'''
     valid_tenure_choices = ('leasehold', 'freehold')
 
-    def __init__(self, start_date, end_date, tenure, lessor, lessee):
+    def __init__(
+        self, start_date, end_date, tenure, lessor, lessee, transactions
+    ):
         '''Initialise lease object along with validation of args.'''
         self._set_dates(start_date, end_date)
         self.term = self.end_date - self.start_date
         self._set_tenure(tenure)
         self.lessor = lessor
         self.lessee = lessee
+        self._set_transactions(transactions)
 
     def _set_dates(self, start_date, end_date):
         '''Set date attributes as datetimes if they are valid.'''
@@ -44,6 +48,19 @@ class Lease:
             self.tenure = tenure
         else:
             raise InvalidTenureError(tenure, self.valid_tenure_choices)
+
+    def _set_transactions(self, transactions):
+        cleaned_transactions = []
+        for transaction in transactions:
+            if isinstance(transaction, Decimal):
+                unrounded_decimal = transaction
+            elif isinstance(transaction, str):
+                unrounded_decimal = Decimal(transaction)
+            rounded_decimal = unrounded_decimal.quantize(
+                Decimal('.01'), rounding=ROUND_DOWN
+            )
+            cleaned_transactions.append(rounded_decimal)
+        setattr(self, 'transactions', cleaned_transactions)
 
     def is_short_term(self):
         '''Return `True` if lease duration is 12 months or less.'''
