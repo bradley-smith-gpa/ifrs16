@@ -42,3 +42,6 @@ Thumbs.db
 # ignore distributable dir and egg info
 dist
 *egg-info
+
+# ignore docs build subdir
+docs/build
