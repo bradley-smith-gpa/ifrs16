@@ -7,6 +7,9 @@ description = 'Generate simple lease calculations with respect to IFRS 16'
 readme = 'README.md'
 requires-python = '>=3.11'
 classifiers = ['Programming Language :: Python :: 3']
+dependencies = [
+  'python-dateutil',
+]
 dynamic = ['version']
 
 [tool.setuptools.dynamic]
